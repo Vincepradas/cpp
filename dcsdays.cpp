@@ -70,38 +70,57 @@ bool isPalindrome(string s)
     return 0;
 }
 
-int kthLE(vector<int> arr,int k) {
+int kthLE(vector<int> arr, int k)
+{
     sort(arr.begin(), arr.end());
-    return arr.at(arr.size()-k);
+    return arr.at(arr.size() - k);
 }
 
-unordered_map<char,int> freqCounter(string s) {
+unordered_map<char, int> freqCounter(string s)
+{
     unordered_map<char, int> freq;
 
-    for(char x: s) {
+    for (char x : s)
+    {
         freq[x]++;
     }
     return freq;
 }
 
-vector<int> customSort(vector<int> n) {
+vector<int> customSort(vector<int> n)
+{
     vector<int> oddArr, mainArr;
-    for(int i = 0; i<n.size(); i++){
-        if(n[i] % 2 != 0) oddArr.push_back(n[i]);
-        else mainArr.push_back(n[i]);
-    }   
+    for (int i = 0; i < n.size(); i++)
+    {
+        if (n[i] % 2 != 0)
+            oddArr.push_back(n[i]);
+        else
+            mainArr.push_back(n[i]);
+    }
 
     sort(mainArr.begin(), mainArr.end());
     sort(oddArr.begin(), oddArr.end(), greater<int>());
-    for(int i = 0; i<mainArr.size(); i++)
+    for (int i = 0; i < mainArr.size(); i++)
         oddArr.push_back(mainArr[i]);
     return oddArr;
 }
 
-int main() {
-    vector<int> n = {4,1,7,2,5,6};
-    vector<int> x = customSort(n);
+int main()
+{
+    vector<int> nums = {2, 7, 11, 15};
+    int target = 9;
+    unordered_map<int, int> mp;
 
-    for(int y:x)
-        cout<<y<<endl;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        if (mp.count(target - nums[i]))
+        {
+            cout << "Pair: " << nums[i] << " " << target - nums[i] << endl;
+        }
+        auto it = find(nums.begin(), nums.end(), nums[i]);
+        int k = distance(nums.begin(), it);
+        mp[k] = i;
+    }
+    for(auto x: mp) 
+        cout<<x.first<<" "<<x.second;
 }
